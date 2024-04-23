@@ -2,7 +2,7 @@ name: Scraping Job
 
 on:
   schedule:
-    - cron: '0 */2 * * *'  # Run every 2 hours
+    - cron: '5 * * * *'  # Run every 2 hours
 
 jobs:
   build:
