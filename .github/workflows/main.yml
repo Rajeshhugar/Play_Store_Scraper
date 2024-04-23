@@ -22,4 +22,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run scraper
-        run: Play_store_Scraper.py
+        run: python Play_store_Scraper.py
