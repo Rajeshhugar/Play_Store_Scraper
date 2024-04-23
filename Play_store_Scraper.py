@@ -26,7 +26,9 @@ for j in range(len(app_id_lst)):
         result_all.extend(result)
     df = pd.DataFrame(result_all)
     
-    os.chdir(r"C:\Users\rajesh.hugar\OneDrive - Course5 Intelligence Limted\2024\Airtel\Codes\Data_Dump")
+    os.mkdir("Data_Dump")
+    os.chdir("/Data_Dump")
+
     df = df.drop_duplicates()
     print(df.shape)
     today = str(datetime.now().strftime("%m-%d-%Y_%H%M%S"))
