@@ -21,5 +21,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run scraper
-        run: python Play_store_Scraper.py
+      - name: Run scraper and store files
+        run: |
+          mkdir -p data  # Create a directory to store the files
+          python Play_store_Scraper.py
+          mv data  # Move the generated files to the 'data' directory
+
+      - name: Commit changes
+        run: |
+          git config --global user.email "hugarrajesh@gmail.com"
+          git config --global user.name "Rajeshhugar"
+          git add .
+          git commit -m "Add scraped data"
+          git push
