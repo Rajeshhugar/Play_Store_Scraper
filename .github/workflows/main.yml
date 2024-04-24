@@ -20,17 +20,20 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          
+      - name: Configure Git
+        run: |
+          git config --global user.email "hugarrajesh@gmail.com"
+          git config --global user.name "Rajeshhugar"
+          git remote set-url origin https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/Rajeshhugar/Play_Store_Scraper.git
 
       - name: Run scraper and store files
         run: |
           mkdir -p data  # Create a directory to store the files
           python Play_store_Scraper.py
           
-
       - name: Commit changes
         run: |
-          git config --global user.email "hugarrajesh@gmail.com"
-          git config --global user.name "Rajeshhugar"
           git add .
           git commit -m "Add scraped data"
           git push
