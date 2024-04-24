@@ -25,7 +25,8 @@ jobs:
         run: |
           mkdir -p data  # Create a directory to store the files
           python Play_store_Scraper.py
-          mv data  # Move the generated files to the 'data' directory
+          mv * data/
+
 
       - name: Commit changes
         run: |
