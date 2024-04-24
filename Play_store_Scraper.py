@@ -9,7 +9,7 @@ import pandas as pd
 from datetime import datetime
 import os 
 
-data_dump_dir = "Data_Dump"
+data_dump_dir = "data"
 if not os.path.exists(data_dump_dir):
     os.mkdir(data_dump_dir)
 
