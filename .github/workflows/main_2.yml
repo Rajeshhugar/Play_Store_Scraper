@@ -1,4 +1,4 @@
-name: Scraping Job
+name: Scraping Job V2
 
 on:
   schedule:
