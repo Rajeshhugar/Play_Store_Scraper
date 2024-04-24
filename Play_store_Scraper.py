@@ -27,7 +27,7 @@ for j in range(len(app_id_lst)):
     df = pd.DataFrame(result_all)
     
     os.mkdir("Data_Dump")
-    os.chdir("/Data_Dump")
+    os.chdir("Data_Dump")
 
     df = df.drop_duplicates()
     print(df.shape)
