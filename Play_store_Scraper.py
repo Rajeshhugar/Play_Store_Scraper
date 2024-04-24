@@ -9,6 +9,12 @@ import pandas as pd
 from datetime import datetime
 import os 
 
+data_dump_dir = "Data_Dump"
+if not os.path.exists(data_dump_dir):
+    os.mkdir(data_dump_dir)
+
+os.chdir(data_dump_dir)
+
 from google_play_scraper import Sort, reviews_all
 app_id_lst= ["com.spotify.music","com.jio.media.jiobeats","com.bsbportal.music"]
 
@@ -26,8 +32,6 @@ for j in range(len(app_id_lst)):
         result_all.extend(result)
     df = pd.DataFrame(result_all)
     
-    os.mkdir("Data_Dump")
-    os.chdir("Data_Dump")
 
     df = df.drop_duplicates()
     print(df.shape)
