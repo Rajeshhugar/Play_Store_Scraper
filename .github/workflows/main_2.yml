@@ -27,7 +27,7 @@ jobs:
           git config --global user.name "Rajeshhugar"
           git remote set-url origin https://github.com/Rajeshhugar/Play_Store_Scraper.git
           git config --global credential.helper store
-          echo "${{ secrets. }}" > ~/.git-credentials
+          echo "${{ secrets.PERSONAL_ACCESS_TOKEN  }}" > ~/.git-credentials
           git config --global credential.helper 'store --file ~/.git-credentials'
 
       - name: Run scraper and store files
