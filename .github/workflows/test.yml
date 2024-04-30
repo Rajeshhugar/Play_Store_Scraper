@@ -26,4 +26,4 @@ jobs:
     - name: Run Python script
       env:
         SERVICE_ACCOUNT_JSON: ${{ secrets.SERVICE_ACCOUNT_JSON }}  # Load service account JSON from secret
-      run: python your_script.py
+      run: python main.py
