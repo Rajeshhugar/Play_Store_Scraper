@@ -4,7 +4,13 @@ from google.oauth2 import service_account
 
 # Load service account JSON from environment variable
 #service_account_info = json.loads(os.environ['SERVICE_ACCOUNT_JSON'])
-service_account_info = os.getenv('SERVICE_ACCOUNT_JSON')
+#service_account_info = os.getenv('SERVICE_ACCOUNT_JSON')
+
+
+
+# Load the JSON file
+with open(os.getenv('SERVICE_ACCOUNT_JSON'), 'r') as f:
+    service_account_info = json.load(f)
 
 # Parse the JSON string into a Python dictionary
 #service_account_info = json.loads(service_account_info)
