@@ -1,0 +1,21 @@
+name: Print Environment Variables
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  print-env-vars:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Print GitHub Secrets
+        run: |
+          echo "GitHub Secrets:"
+          echo "SERVICE_ACCOUNT_JSON: ${{ secrets.SERVICE_ACCOUNT_JSON }}"
+      
+      - name: Print Other Environment Variables
+        run: |
+          echo "Other Environment Variables:"
+          printenv  # Print all environment variables
