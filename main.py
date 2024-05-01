@@ -6,7 +6,11 @@ from google.oauth2 import service_account
 #service_account_info = json.loads(os.environ['SERVICE_ACCOUNT_JSON'])
 service_account_info = os.getenv('SERVICE_ACCOUNT_JSON')
 
+# Parse the JSON string into a Python dictionary
+service_account_info = json.loads(service_account_json_str)
+
 # Authenticate using service account JSON
+
 credentials = service_account.Credentials.from_service_account_info(service_account_info)
 
 
