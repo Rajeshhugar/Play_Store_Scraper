@@ -1,4 +1,4 @@
-name: Your Workflow Name
+name: Workflow github actions 
 
 on:
   push:
@@ -22,10 +22,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Decode secret and save as JSON file
-      run: |
-        echo ${{ secrets.SERVICE_ACCOUNT_JSON }} | base64 --decode > secret.json
-      
     - name: Run Python script
       env:
         SERVICE_ACCOUNT_JSON: secret.json  # Load service account JSON from secret
