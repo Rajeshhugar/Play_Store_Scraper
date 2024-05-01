@@ -50,7 +50,7 @@ FOLDER_IDS = {
 def authenticate():
     creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
     #credentials = service_account.Credentials.from_service_account_info(service_account_info,scopes=SCOPES)
-      return creds
+    return creds
     #return credentials
 
 def upload_data(file_path, folder_id):
