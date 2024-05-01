@@ -1,18 +1,24 @@
 import os
 import json
 from google.oauth2 import service_account
+from googleapiclient.discovery import build
+import pandas as pd
+from datetime import datetime
+from google_play_scraper import Sort, reviews_all
+from googleapiclient.http import MediaFileUpload
 
 # Load service account JSON from environment variable
 #service_account_info = json.loads(os.environ['SERVICE_ACCOUNT_JSON'])
 #service_account_info = os.getenv('SERVICE_ACCOUNT_JSON')
 
-
+# Define necessary constants
+SERVICE_ACCOUNT_FILE = 'service_account.json'
 
 # Load the JSON file
-with open('secret.json', 'r') as f:
-   content = f.read()
-   print(content)  # Print the content of the file
-   service_account_info = json.loads(content)
+#with open('secret.json', 'r') as f:
+ #  content = f.read()
+  # print(content)  # Print the content of the file
+   #service_account_info = json.loads(content)
 
 # Parse the JSON string into a Python dictionary
 #service_account_info = json.loads(service_account_info)
@@ -42,10 +48,10 @@ FOLDER_IDS = {
 }
 
 def authenticate():
-    #creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-    credentials = service_account.Credentials.from_service_account_info(service_account_info,scopes=SCOPES)
-   # return creds
-    return credentials
+    creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+    #credentials = service_account.Credentials.from_service_account_info(service_account_info,scopes=SCOPES)
+      return creds
+    #return credentials
 
 def upload_data(file_path, folder_id):
     creds = authenticate()
