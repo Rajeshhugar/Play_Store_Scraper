@@ -3,7 +3,8 @@ import json
 from google.oauth2 import service_account
 
 # Load service account JSON from environment variable
-service_account_info = json.loads(os.environ['SERVICE_ACCOUNT_JSON'])
+#service_account_info = json.loads(os.environ['SERVICE_ACCOUNT_JSON'])
+service_account_info = os.getenv('SERVICE_ACCOUNT_JSON')
 
 # Authenticate using service account JSON
 credentials = service_account.Credentials.from_service_account_info(service_account_info)
