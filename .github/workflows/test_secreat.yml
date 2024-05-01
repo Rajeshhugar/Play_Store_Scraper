@@ -17,5 +17,4 @@ jobs:
       
       - name: Print Other Environment Variables
         run: |
-          echo "Other Environment Variables:"
-          printenv  # Print all environment variables
+          python action.py
