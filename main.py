@@ -9,18 +9,17 @@ from google.oauth2 import service_account
 
 
 # Load the JSON file
-#with open('secret.json', 'r') as f:
-   # content = f.read()
-    #print(content)  # Print the content of the file
-    #service_account_info = json.loads(content)
-
+with open('secret.json', 'r') as f:
+   content = f.read()
+   print(content)  # Print the content of the file
+   service_account_info = json.loads(content)
 
 # Parse the JSON string into a Python dictionary
 #service_account_info = json.loads(service_account_info)
 
 # Authenticate using service account JSON
 
-credentials = service_account.Credentials.from_service_account_info(service_account_info)
+#credentials = service_account.Credentials.from_service_account_info(service_account_info)
 
 
 from google.oauth2 import service_account
@@ -34,7 +33,7 @@ from googleapiclient.http import MediaFileUpload
 # Define necessary constants
 #SERVICE_ACCOUNT_FILE = 'service_account.json'
 # Load service account JSON from environment variable
-service_account_info = json.loads(os.environ['SERVICE_ACCOUNT_JSON'])
+#service_account_info = json.loads(os.environ['SERVICE_ACCOUNT_JSON'])
 SCOPES = ['https://www.googleapis.com/auth/drive']
 FOLDER_IDS = {
     "com.jio.media.jiobeats": "1xMbImCG8IXb1uLpZZ01-SgrwHHiqoj86",
