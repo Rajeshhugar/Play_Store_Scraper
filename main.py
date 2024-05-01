@@ -9,8 +9,11 @@ from google.oauth2 import service_account
 
 
 # Load the JSON file
-with open(os.getenv('SERVICE_ACCOUNT_JSON'), 'r') as f:
-    service_account_info = json.load(f)
+with open('secret.json', 'r') as f:
+    content = f.read()
+    print(content)  # Print the content of the file
+    service_account_info = json.loads(content)
+
 
 # Parse the JSON string into a Python dictionary
 #service_account_info = json.loads(service_account_info)
