@@ -93,11 +93,13 @@ for app_id in app_id_lst:
     df = df.drop_duplicates()
     print(df.shape)
     
-    today = datetime.now().strftime("%m-%d-%Y_%H%M%S")
-    folder_id = FOLDER_IDS.get(app_id)
-    
     if folder_id:
-        file_name = f'reviews-{app_id}_{today}.xlsx'
+        file_name = f'reviews-{app_id}_{today}.parquet'
         file_path = os.path.join('data', file_name)
-        df.to_excel(file_path, index=False)
+        
+        # Save DataFrame to Parquet
+        df.to_parquet(file_path, index=False)
+        
+        # Example upload_data function (replace with your implementation)
         upload_data(file_path, folder_id)
+
