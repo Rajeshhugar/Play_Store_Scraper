@@ -60,15 +60,15 @@ app_id_lst = ["com.spotify.music", "com.jio.media.jiobeats", "com.bsbportal.musi
 
 for app_id in app_id_lst:
     result_all = []
-    for _ in range(1, 15):
-        result = reviews_all(
-            app_id,
-            sleep_milliseconds=0,
-            lang='en',
-            country='in',
-            sort=Sort.NEWEST
-        )
-        result_all.extend(result)
+    
+    result = reviews_all(
+        app_id,
+        sleep_milliseconds=0,
+        lang='en',
+        country='in',
+        sort=Sort.NEWEST
+    )
+    result_all.extend(result)
     
     df = pd.DataFrame(result_all)
     df = df.drop_duplicates()

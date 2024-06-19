@@ -79,7 +79,7 @@ app_id_lst = ["com.jio.media.jiobeats", "com.spotify.music", "com.bsbportal.musi
 
 for app_id in app_id_lst:
     result_all = []
-    for _ in range(1, 15):
+    for _ in range(1,5):
         result = reviews_all(
             app_id,
             sleep_milliseconds=0,
@@ -93,6 +93,10 @@ for app_id in app_id_lst:
     df = df.drop_duplicates()
     print(df.shape)
     
+    today = datetime.now().strftime("%m-%d-%Y_%H%M%S")
+    folder_id = FOLDER_IDS.get(app_id)
+
+
     if folder_id:
         file_name = f'reviews-{app_id}_{today}.parquet'
         file_path = os.path.join('data', file_name)

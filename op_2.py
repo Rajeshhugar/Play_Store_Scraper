@@ -1,3 +1,33 @@
+import os
+import json
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+import pandas as pd
+from datetime import datetime
+from google_play_scraper import Sort, reviews_all
+from googleapiclient.http import MediaFileUpload
+
+# Load service account JSON from environment variable
+#service_account_info = json.loads(os.environ['SERVICE_ACCOUNT_JSON'])
+#service_account_info = os.getenv('SERVICE_ACCOUNT_JSON')
+
+# Define necessary constants
+SERVICE_ACCOUNT_FILE = 'service_account.json'
+
+# Load the JSON file
+#with open('secret.json', 'r') as f:
+ #  content = f.read()
+  # print(content)  # Print the content of the file
+   #service_account_info = json.loads(content)
+
+# Parse the JSON string into a Python dictionary
+#service_account_info = json.loads(service_account_info)
+
+# Authenticate using service account JSON
+
+#credentials = service_account.Credentials.from_service_account_info(service_account_info)
+
+
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import pandas as pd
@@ -7,42 +37,21 @@ from google_play_scraper import Sort, reviews_all
 from googleapiclient.http import MediaFileUpload
 
 # Define necessary constants
-SERVICE_ACCOUNT_FILE = 'service_account.json'
+#SERVICE_ACCOUNT_FILE = 'service_account.json'
+# Load service account JSON from environment variable
+#service_account_info = json.loads(os.environ['SERVICE_ACCOUNT_JSON'])
 SCOPES = ['https://www.googleapis.com/auth/drive']
-PARENT_FOLDER_ID = '1yaX2B2xNmfUi_qTlmsPqDFHjGeTBf4Xw'  # Update with your parent folder ID
+FOLDER_IDS = {
+    "com.jio.media.jiobeats": "1xMbImCG8IXb1uLpZZ01-SgrwHHiqoj86",
+    "com.spotify.music": "1FYVbhYihhJVjLBbhtHaTaH3WeeSD96GG",
+    "com.bsbportal.music": "1UrTHLD0tOHQSe7-tO74Ua7CPoWuxqE2E"
+}
 
 def authenticate():
     creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+    #credentials = service_account.Credentials.from_service_account_info(service_account_info,scopes=SCOPES)
     return creds
-
-def get_folder_id(service, parent_folder_id, folder_name):
-    # Search for existing folder with the given name
-    response = service.files().list(
-        q=f"'{parent_folder_id}' in parents and name='{folder_name}' and mimeType='application/vnd.google-apps.folder'",
-        fields='files(id)'
-    ).execute()
-
-    folders = response.get('files', [])
-    if folders:
-        return folders[0]['id']  # Return the ID of the first matching folder
-    else:
-        return None
-
-def create_folder(service, parent_folder_id, folder_name):
-    # Create a new folder with the given name
-    folder_metadata = {
-        'name': folder_name,
-        'parents': [parent_folder_id],
-        'mimeType': 'application/vnd.google-apps.folder'
-    }
-
-    try:
-        folder = service.files().create(body=folder_metadata, fields='id').execute()
-        print(f'Folder created: {folder.get("id")}')
-        return folder.get('id')
-    except Exception as e:
-        print('An error occurred while creating the folder:', str(e))
-        return None
+    #return credentials
 
 def upload_data(file_path, folder_id):
     creds = authenticate()
@@ -66,40 +75,36 @@ def upload_data(file_path, folder_id):
     except Exception as e:
         print('An error occurred while uploading the file:', str(e))
 
-app_id_lst = ["com.spotify.music", "com.jio.media.jiobeats", "com.bsbportal.music"]
+app_id_lst = ["com.jio.media.jiobeats", "com.spotify.music", "com.bsbportal.music"]
 
 for app_id in app_id_lst:
     result_all = []
-    for _ in range(1, 15):
-        result = reviews_all(
-            app_id,
-            sleep_milliseconds=0,
-            lang='en',
-            country='in',
-            sort=Sort.NEWEST
-        )
-        result_all.extend(result)
+
+    result = reviews_all(
+        app_id,
+        sleep_milliseconds=0,
+        lang='en',
+        country='in',
+        sort=Sort.NEWEST
+    )
+    result_all.extend(result)
     
     df = pd.DataFrame(result_all)
     df = df.drop_duplicates()
     print(df.shape)
     
+
+
     today = datetime.now().strftime("%m-%d-%Y_%H%M%S")
-    folder_name = f'reviews-{app_id}'
-    
-    # Authenticate
-    creds = authenticate()
-    service = build("drive", "v3", credentials=creds)
-    
-    # Check if folder exists
-    folder_id = get_folder_id(service, PARENT_FOLDER_ID, folder_name)
-    
-    if not folder_id:
-        # Create folder if it doesn't exist
-        folder_id = create_folder(service, PARENT_FOLDER_ID, folder_name)
-    
+    folder_id = FOLDER_IDS.get(app_id)
+
     if folder_id:
-        file_name = f'{folder_name}_{today}.xlsx'
+        file_name = f'reviews-{app_id}_{today}.parquet'
         file_path = os.path.join('data', file_name)
-        df.to_excel(file_path, index=False)
+        
+        # Save DataFrame to Parquet
+        df.to_parquet(file_path, index=False)
+        
+        # Example upload_data function (replace with your implementation)
         upload_data(file_path, folder_id)
+
