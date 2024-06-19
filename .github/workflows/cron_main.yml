@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: '30 */2 * * *'  # Run every 2 hours offset by 30 minutes
+    - cron: '0 */8 * * *'  # Run every 8 hours offset
 
 jobs:
   run-python-script:
