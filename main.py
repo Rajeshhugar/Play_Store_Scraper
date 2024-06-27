@@ -42,9 +42,15 @@ from googleapiclient.http import MediaFileUpload
 #service_account_info = json.loads(os.environ['SERVICE_ACCOUNT_JSON'])
 SCOPES = ['https://www.googleapis.com/auth/drive']
 FOLDER_IDS = {
-    "com.jio.media.jiobeats": "1xMbImCG8IXb1uLpZZ01-SgrwHHiqoj86",
-    "com.spotify.music": "1FYVbhYihhJVjLBbhtHaTaH3WeeSD96GG",
-    "com.bsbportal.music": "1UrTHLD0tOHQSe7-tO74Ua7CPoWuxqE2E"
+  #  "com.jio.media.jiobeats": "1xMbImCG8IXb1uLpZZ01-SgrwHHiqoj86",
+  #  "com.spotify.music": "1FYVbhYihhJVjLBbhtHaTaH3WeeSD96GG",
+  #  "com.bsbportal.music": "1UrTHLD0tOHQSe7-tO74Ua7CPoWuxqE2E"
+
+ "com.jio.media.jiobeats": "1zHsgD58cZFMuIY4J9jPJjGJpgUnv82Gw",
+  "com.spotify.music": "1pNtx0yfKq9Jz0w3TvriSpSB7srzvuEg9",
+   "com.bsbportal.music": "1WuFijOR1AhO8gYdTkX-mRR56SIcj7JOe"
+
+ 
 }
 
 def authenticate():
